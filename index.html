@@ -237,11 +237,11 @@
         }
 
         .images-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
             gap: 1rem;
             margin: 1.5rem 0;
-            align-items: start;
+            align-items: flex-start;
+            justify-content: center;
         }
 
         .image-container {
@@ -249,7 +249,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 400px;
+            flex: 1;
+            max-width: 300px;
         }
 
         .image-container h4 {
@@ -261,8 +262,8 @@
 
         .case-image {
             width: 100%;
-            max-width: 400px;
-            height: 300px;
+            max-width: 280px;
+            height: 200px;
             object-fit: cover;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -419,20 +420,22 @@
             }
             
             .images-comparison {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 1.5rem;
             }
             
             .image-container {
-                min-height: 350px;
+                max-width: 100%;
             }
             
             .case-image {
-                height: 250px;
+                max-width: 320px;
+                height: 180px;
             }
             
             .image-error {
-                height: 250px;
+                max-width: 320px;
+                height: 180px;
             }
             
             .filter-buttons {
@@ -468,13 +471,13 @@
         .image-error {
             background: #f8f9fa;
             border: 2px dashed #dee2e6;
-            padding: 2rem;
+            padding: 1rem;
             text-align: center;
             color: #6c757d;
             border-radius: 10px;
             width: 100%;
-            max-width: 400px;
-            height: 300px;
+            max-width: 280px;
+            height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1552,6 +1555,34 @@
   }
 ];
 
+        // 圖片錯誤處理函數
+        function handleImageError(img) {
+            // 嘗試重新載入圖片
+            const originalSrc = img.src;
+            img.style.display = 'none';
+            
+            // 重試載入
+            setTimeout(() => {
+                const newImg = new Image();
+                newImg.onload = function() {
+                    img.src = originalSrc;
+                    img.style.display = 'block';
+                    const errorDiv = img.nextElementSibling;
+                    if (errorDiv && errorDiv.classList.contains('image-error')) {
+                        errorDiv.style.display = 'none';
+                    }
+                };
+                newImg.onerror = function() {
+                    // 如果重試也失敗，顯示錯誤訊息
+                    const errorDiv = img.nextElementSibling;
+                    if (errorDiv && errorDiv.classList.contains('image-error')) {
+                        errorDiv.style.display = 'flex';
+                    }
+                };
+                newImg.src = originalSrc;
+            }, 1000);
+        }
+
         // 初始化頁面
         function initializePage() {
             renderCases(casesData);
@@ -1583,7 +1614,7 @@
                         <div class="images-comparison">
                             <div class="image-container">
                                 <h4>🍌 Gemini</h4>
-                                <img src="${caseData.geminiImage}" alt="Gemini Example ${caseData.id}" class="case-image" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <img src="${caseData.geminiImage}" alt="Gemini Example ${caseData.id}" class="case-image" loading="lazy" onerror="handleImageError(this);">
                                 <div class="image-error" style="display: none;">
                                     <div>🖼️ 圖片載入失敗</div>
                                     <small>${caseData.geminiImage}</small>
@@ -1591,7 +1622,7 @@
                             </div>
                             <div class="image-container">
                                 <h4>🎨 GPT-4o</h4>
-                                <img src="${caseData.gpt4oImage}" alt="GPT-4o Example ${caseData.id}" class="case-image" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <img src="${caseData.gpt4oImage}" alt="GPT-4o Example ${caseData.id}" class="case-image" loading="lazy" onerror="handleImageError(this);">
                                 <div class="image-error" style="display: none;">
                                     <div>🖼️ 圖片載入失敗</div>
                                     <small>${caseData.gpt4oImage}</small>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome 🍌 Nano Banana Images ✨</title>
+    <meta name="description" content="Awesome Nano Banana Image Collection - 精心策劃的 Gemini-2.5-Flash-Image 生成圖像和提示詞集合">
+    <meta name="keywords" content="AI, 圖像生成, Nano Banana, Gemini, GPT-4o, 人工智慧, 創意設計">
+    <meta property="og:title" content="Awesome 🍌 Nano Banana Images ✨">
+    <meta property="og:description" content="精心策劃的 AI 圖像生成技術展示集合">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/awesome-nano-banana-showcase/">
+    <meta property="og:image" content="https://yourusername.github.io/awesome-nano-banana-showcase/og-image.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badges {
+            margin: 1rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            margin: 0.25rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .intro {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .intro h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h4 {
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+        }
+
+        .toc {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .toc a:hover {
+            background: #ecf0f1;
+            color: #2980b9;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .case-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .case-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .case-item h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .case-item p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .sponsors {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .sponsors h3 {
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-link {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .sponsor-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .github-info {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .github-info h3 {
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+
+        .github-info code {
+            background: #e9ecef;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .deployment-status {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Awesome 🍌 Nano Banana Images ✨</h1>
+            <div class="badges">
+                <a href="#" class="badge">CC BY 4.0 License</a>
+                <a href="#" class="badge">English</a>
+                <a href="#" class="badge">简体中文</a>
+                <a href="#" class="badge">⭐ GitHub Stars</a>
+            </div>
+            <p>🎉 Welcome to 🍌 Nano Banana Image Collection!</p>
+        </div>
+
+        <div class="content">
+            <div class="deployment-status">
+                <h3>🚀 成功部署到 GitHub Pages!</h3>
+                <p>您的網站現在已經可以在網路上訪問了</p>
+            </div>
+
+            <div class="intro">
+                <h2>🍌 AI 圖像生成技術展示</h2>
+                <p>這是一個精心策劃的 Gemini-2.5-Flash-Image（也稱為 Nano Banana）生成圖像和提示詞集合。利用 Google 最先進的圖像生成模型，全面展示 Gemini 在 AI 圖像生成和編輯方面的先進能力。</p>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">🤖</span> Gemini vs GPT-4o 比較版本</h2>
+                <p>本文檔已更新，使用 Gemini 模型重新生成了 97 個案例比較。每個更新的案例都展示了：</p>
+                <div class="features">
+                    <div class="feature">
+                        <h4>📊 並排比較</h4>
+                        <p>GPT-4o 原版與 Gemini 生成圖像的對比</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🔧 技術細節</h4>
+                        <p>Token 使用量、生成時間等統計數據</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🎨 視覺差異</h4>
+                        <p>兩個模型在相同提示詞下的不同表現</p>
+                    </div>
+                </div>
+                <p><strong>最後更新：</strong>2025年8月30日 晚上10:08:15</p>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">🍌</span> 什麼是 Nano Banana</h2>
+                <p>Nano Banana 是 Google 的革命性 AI 圖像編輯模型，代表著從「AI 繪畫工具」到「AI 創意夥伴」的範式轉變。它不再被動執行命令，而是深刻理解現有圖像的上下文、光照、物理邏輯和創意意圖。</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <h4>🎯 上下文感知編輯</h4>
+                        <p>真正理解人與環境之間的關係，在背景替換後智能重新渲染光照和反射</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🔧 外科手術精度</h4>
+                        <p>以極高精度添加或替換物品，完美處理遮擋關係和光照效果</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🌐 深度 3D 理解</h4>
+                        <p>能夠「看到」2D 圖像內的 3D 結構，實現真正的空間感知編輯</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🎬 風格一致性</h4>
+                        <p>基於單一參考圖像構建完全統一的「視覺世界」</p>
+                    </div>
+                    <div class="feature">
+                        <h4>✨ 協作創作</h4>
+                        <p>從「主僕對話」演進為創作者之間的「靈感交流」</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">🎨</span> 什麼是 GPT-4o</h2>
+                <p>GPT-4o 是一個多模態模型，不僅能將文本提示轉換為高質量圖像，還提供圖像到圖像的編輯功能——支持有針對性的修飾、風格轉換和多圖像混合。</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <h4>🧠 多模態理解</h4>
+                        <p>同時解析文本和圖像，精確捕捉創意意圖</p>
+                    </div>
+                    <div class="feature">
+                        <h4>✍️ 準確渲染</h4>
+                        <p>處理複雜提示並快速生成高質量圖像</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🎨 多樣風格</h4>
+                        <p>吉卜力、繪畫風格、像素藝術、3D 毛絨等——選擇您的最愛</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🖼️ 真實構圖</h4>
+                        <p>空間深度、透視和光照感覺真實</p>
+                    </div>
+                    <div class="feature">
+                        <h4>✏️ 輕鬆後期編輯</h4>
+                        <p>交換背景、調整細節——無縫進行第二輪創作</p>
+                    </div>
+                    <div class="feature">
+                        <h4>⚡️ 閃電般快速交互</h4>
+                        <p>更短的回應時間，實現實時創意和迭代</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sponsors">
+                <h3>💡 推薦工具</h3>
+                <p>想要快速體驗各種 AI 圖像生成模型？我們推薦使用 chatimg.ai 網站，它支持 GPT-4o、Gemini、Flux、Grok 等主流模型進行圖像生成，提供眾多精美模板，並支持自定義提示詞創建！</p>
+                <a href="https://chatimg.ai" class="sponsor-link" target="_blank">🚀 體驗 chatimg.ai</a>
+                <a href="https://supermaker.ai/image/nano-banana/" class="sponsor-link" target="_blank">🍌 Free Nano Banana AI</a>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">📖</span> 案例目錄</h2>
+                <div class="toc">
+                    <p>本集合包含 <span class="highlight">100 個精彩案例</span>，涵蓋各種創意應用場景：</p>
+                    <div class="case-grid">
+                        <div class="case-item">
+                            <h4>Case 100: 實物與手繪塗鴉創意廣告</h4>
+                            <p>by @azed_ai</p>
+                        </div>
+                        <div class="case-item">
+                            <h4>Case 99: 黑白肖像藝術</h4>
+                            <p>by @ZHO_ZHO_ZHO</p>
+                        </div>
+                        <div class="case-item">
+                            <h4>Case 98: 磨砂玻璃後的模糊剪影</h4>
+                            <p>by @umesh_ai</p>
+                        </div>
+                        <div class="case-item">
+                            <h4>Case 97: 可愛舒適的針織娃娃</h4>
+                            <p>by @ZHO_ZHO_ZHO</p>
+                        </div>
+                        <div class="case-item">
+                            <h4>Case 96: 自定義動漫手辦</h4>
+                            <p>by @dotey</p>
+                        </div>
+                        <div class="case-item">
+                            <h4>Case 95: 自拍轉搖頭娃娃生成器</h4>
+                            <p>by @thisdudelikesAI</p>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem; color: #666;">
+                        <em>... 還有更多精彩案例等待探索！</em>
+                    </p>
+                </div>
+            </div>
+
+            <div class="github-info">
+                <h3>🔗 分享連結</h3>
+                <p>您的朋友可以通過以下連結訪問這個網站：</p>
+                <p><code>https://yourusername.github.io/awesome-nano-banana-showcase/</code></p>
+                <p><small>請將 "yourusername" 替換為您的實際 GitHub 用戶名</small></p>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">🛠️</span> 工具介紹</h2>
+                <p>本項目提供了多種工具和資源來幫助您更好地使用 AI 圖像生成技術：</p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>📚 詳細的提示詞庫和最佳實踐</li>
+                    <li>🎨 風格指南和技術技巧</li>
+                    <li>🔧 實用的編輯工具和資源</li>
+                    <li>💡 創意靈感和案例研究</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">💡</span> 提示詞技巧</h2>
+                <p>獲得最佳 AI 圖像生成結果的關鍵技巧：</p>
+                <div class="features">
+                    <div class="feature">
+                        <h4>🎯 具體描述</h4>
+                        <p>使用具體、詳細的描述詞，避免模糊的表達</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🎨 風格關鍵詞</h4>
+                        <p>明確指定藝術風格、色彩方案和構圖要求</p>
+                    </div>
+                    <div class="feature">
+                        <h4>🔍 技術參數</h4>
+                        <p>包含解析度、光照、質感等技術細節</p>
+                    </div>
+                    <div class="feature">
+                        <h4>✨ 創意元素</h4>
+                        <p>添加獨特的創意元素和情感表達</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">🤝</span> 如何貢獻</h2>
+                <p>我們歡迎社區成員貢獻新的案例、改進現有內容或提供反饋：</p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>🌟 提交新的創意案例</li>
+                    <li>📝 改進文檔和說明</li>
+                    <li>🐛 報告問題和建議</li>
+                    <li>💬 分享使用經驗和技巧</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Awesome 🍌 Nano Banana Images ✨</strong></p>
+            <p>讓 AI 創意激發您的想像力，加速您的創作過程 🚀</p>
+            <div class="social-links">
+                <a href="#" target="_blank">GitHub</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">Discord</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                © 2025 Awesome Nano Banana Images. Licensed under CC BY 4.0.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 添加平滑滾動效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 添加滾動時的動畫效果
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 觀察所有 section 元素
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // 添加點擊效果
+        document.querySelectorAll('.case-item, .feature').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // 更新 URL 為實際的 GitHub Pages URL
+        function updateGitHubURL() {
+            const currentURL = window.location.href;
+            if (currentURL.includes('github.io')) {
+                const githubURL = currentURL;
+                document.querySelector('.github-info code').textContent = githubURL;
+                document.querySelector('meta[property="og:url"]').content = githubURL;
+            }
+        }
+
+        // 頁面加載完成後更新 URL
+        document.addEventListener('DOMContentLoaded', updateGitHubURL);
+    </script>
+</body>
+</html>

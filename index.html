@@ -21,83 +21,64 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2c3e50;
+            background: #f8f9fa;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            min-height: 100vh;
         }
 
         .header {
-            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            background: #2c3e50;
             color: white;
-            padding: 2rem;
+            padding: 4rem 2rem;
             text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
+            font-weight: 300;
             margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.8;
+            letter-spacing: 1px;
         }
 
         .badges {
-            margin: 1rem 0;
-            position: relative;
-            z-index: 1;
+            margin: 2rem 0 0 0;
         }
 
         .badge {
             display: inline-block;
             margin: 0.25rem;
             padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.2);
-            border-radius: 20px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
             text-decoration: none;
             color: white;
             font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
             transition: all 0.3s ease;
         }
 
         .badge:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
         }
 
         .content {
@@ -105,73 +86,96 @@
         }
 
         .intro {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
+            background: white;
+            padding: 4rem 2rem;
+            margin-bottom: 0;
             text-align: center;
+            border-bottom: 1px solid #ecf0f1;
         }
 
         .intro h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            letter-spacing: 1px;
         }
 
         .intro p {
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: #7f8c8d;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: 0;
+            margin: 0;
+            border-bottom: 1px solid #ecf0f1;
         }
 
         .stat-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
+            padding: 3rem 1.5rem;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-right: 1px solid #ecf0f1;
+        }
+
+        .stat-card:last-child {
+            border-right: none;
         }
 
         .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff6b6b;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
             margin-bottom: 0.5rem;
+            letter-spacing: 1px;
         }
 
         .stat-label {
-            color: #666;
+            color: #7f8c8d;
             font-size: 0.9rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .search-section {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 10px;
-            margin: 2rem 0;
+            background: white;
+            padding: 3rem 2rem;
+            margin: 0;
             text-align: center;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .search-section h3 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .search-box {
             width: 100%;
             max-width: 500px;
-            padding: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 25px;
+            padding: 1rem 1.5rem;
+            border: 1px solid #bdc3c7;
             font-size: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             transition: border-color 0.3s ease;
+            font-weight: 300;
         }
 
         .search-box:focus {
             outline: none;
-            border-color: #ff6b6b;
+            border-color: #2c3e50;
         }
 
         .filter-buttons {
@@ -179,67 +183,71 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.5rem;
-            margin-top: 1rem;
         }
 
         .filter-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid #ff6b6b;
-            background: white;
-            color: #ff6b6b;
-            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid #bdc3c7;
+            background: transparent;
+            color: #2c3e50;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-            background: #ff6b6b;
+            background: #2c3e50;
             color: white;
+            border-color: #2c3e50;
         }
 
         .cases-container {
-            margin-top: 3rem;
+            margin-top: 0;
         }
 
         .case {
             background: white;
-            border-radius: 15px;
-            margin-bottom: 3rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            margin-bottom: 0;
+            border-bottom: 1px solid #ecf0f1;
+            transition: background-color 0.3s ease;
         }
 
         .case:hover {
-            transform: translateY(-5px);
+            background: #f8f9fa;
         }
 
         .case-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #34495e;
             color: white;
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .case-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 300;
             margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
 
         .case-author {
-            opacity: 0.9;
+            opacity: 0.7;
             font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         .case-content {
-            padding: 2rem;
+            padding: 3rem 2rem;
         }
 
         .images-comparison {
             display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 2rem;
+            margin: 2rem 0;
             align-items: flex-start;
             justify-content: center;
         }
@@ -254,9 +262,12 @@
         }
 
         .image-container h4 {
-            margin-bottom: 1rem;
-            color: #333;
-            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             min-height: 1.5rem;
         }
 
@@ -265,14 +276,14 @@
             max-width: 280px;
             height: 200px;
             object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            border: 1px solid #ecf0f1;
+            transition: all 0.3s ease;
             background: #f8f9fa;
         }
 
         .case-image:hover {
-            transform: scale(1.05);
+            border-color: #bdc3c7;
+            transform: translateY(-2px);
         }
 
         .case-image[src=""] {
@@ -280,81 +291,87 @@
         }
 
         .prompt-section {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #28a745;
+            background: #2c3e50;
+            padding: 2rem;
+            margin: 2rem 0;
         }
 
         .prompt-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .prompt-title {
-            color: #28a745;
-            font-weight: bold;
-            font-size: 1.1rem;
+            color: white;
+            font-weight: 300;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .copy-btn {
-            background: #28a745;
+            background: transparent;
             color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            border: 1px solid white;
+            padding: 0.5rem 1.5rem;
             cursor: pointer;
             font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
             transition: all 0.3s ease;
         }
 
         .copy-btn:hover {
-            background: #218838;
-            transform: translateY(-2px);
+            background: white;
+            color: #2c3e50;
         }
 
         .copy-btn.copied {
-            background: #6c757d;
+            background: #34495e;
+            border-color: #34495e;
         }
 
         .prompt-content {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 8px;
+            background: #34495e;
+            color: white;
+            padding: 1.5rem;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
-            line-height: 1.5;
+            line-height: 1.6;
             white-space: pre-wrap;
             overflow-x: auto;
             border: 1px solid #4a5568;
+            font-weight: 300;
         }
 
         .prompt-note {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            color: #2c3e50;
             padding: 1rem;
-            border-radius: 8px;
             margin-top: 1rem;
             font-size: 0.9rem;
+            font-weight: 300;
         }
 
         .source-link {
             text-align: center;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
         }
 
         .source-link a {
-            color: #3498db;
+            color: #7f8c8d;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
         }
 
         .source-link a:hover {
+            color: #2c3e50;
             text-decoration: underline;
         }
 
@@ -362,66 +379,91 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #ff6b6b;
+            background: #2c3e50;
             color: white;
             border: none;
             padding: 1rem;
-            border-radius: 50%;
             cursor: pointer;
             font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
             z-index: 1000;
             display: none;
+            font-weight: 300;
         }
 
         .back-to-top:hover {
-            background: #e55a5a;
+            background: #34495e;
             transform: translateY(-3px);
         }
 
         .footer {
-            background: #2c3e50;
+            background: #34495e;
             color: white;
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
+            padding: 3rem 2rem;
+            margin-top: 0;
         }
 
         .footer p {
             margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         .social-links {
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
 
         .social-links a {
             color: white;
             text-decoration: none;
-            margin: 0 1rem;
+            margin: 0 0.5rem;
             padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
         .social-links a:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
         }
 
         @media (max-width: 768px) {
+            .header {
+                padding: 3rem 1rem;
+            }
+            
             .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .intro {
+                padding: 3rem 1rem;
+            }
+            
+            .intro h2 {
                 font-size: 2rem;
             }
             
-            .content {
-                padding: 1rem;
+            .search-section {
+                padding: 2rem 1rem;
+            }
+            
+            .case-header {
+                padding: 1.5rem;
+            }
+            
+            .case-content {
+                padding: 2rem 1rem;
             }
             
             .images-comparison {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2rem;
             }
             
             .image-container {
@@ -445,6 +487,14 @@
             
             .filter-btn {
                 width: 200px;
+            }
+            
+            .prompt-section {
+                padding: 1.5rem;
+            }
+            
+            .footer {
+                padding: 2rem 1rem;
             }
         }
 
@@ -470,11 +520,10 @@
 
         .image-error {
             background: #f8f9fa;
-            border: 2px dashed #dee2e6;
+            border: 1px dashed #bdc3c7;
             padding: 1rem;
             text-align: center;
-            color: #6c757d;
-            border-radius: 10px;
+            color: #7f8c8d;
             width: 100%;
             max-width: 280px;
             height: 200px;
@@ -483,6 +532,7 @@
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
+            font-weight: 300;
         }
 
         .image-error small {
@@ -490,6 +540,7 @@
             margin-top: 0.5rem;
             word-break: break-all;
             opacity: 0.7;
+            font-weight: 300;
         }
     </style>
 </head>

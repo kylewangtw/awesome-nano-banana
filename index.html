@@ -542,6 +542,112 @@
             opacity: 0.7;
             font-weight: 300;
         }
+
+        /* 點選看大圖功能 */
+        .case-image {
+            cursor: pointer;
+        }
+
+        .case-image:hover::after {
+            content: '🔍 點選看大圖';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        /* 模態框樣式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 2px solid white;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            font-weight: 300;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-info {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .modal-close {
+                top: -30px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-info {
+                bottom: -40px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -611,6 +717,15 @@
 
     <button class="back-to-top" onclick="scrollToTop()" title="回到頂部">↑</button>
 
+    <!-- 圖片放大模態框 -->
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <div id="modalInfo" class="modal-info"></div>
+        </div>
+    </div>
+
     <script>
         // 案例數據
         const casesData = [
@@ -621,7 +736,7 @@
     "category": "object",
     "sourceLink": "https://x.com/azed_ai/status/1923016036120658122",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-Bt055iW47OUqRDOh-K0gZ.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-Bt055iW47OUqRDOh-K0gZ.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/100/creative-ad-real-object-hand-drawn-doodle.png",
     "prompt": "A minimalist and creative advertisement set on a clean white background.\nA real [Real Object] is integrated into a hand-drawn black ink doodle, using loose, playful lines. The [Doodle Concept] interacts with the object in a clever, imaginative way. Include bold black [Ad Copy] text at the top or center. Place the [Brand Logo] clearly at the bottom. The visual should be clean, fun, high-contrast, and conceptually smart.",
     "note": ""
   },
@@ -632,7 +747,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1922150692145283299",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-ameZsuCqj7Px_1-NLwLhj.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-ameZsuCqj7Px_1-NLwLhj.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/99/harry-potter-black-white-portrait-art.png",
     "prompt": "A high-resolution black and white portrait artwork, in an editorial and fine art photography style. The background features a soft gradient, transitioning from mid-gray to almost pure white, creating a sense of depth and tranquility. Fine film grain adds a tactile, analog-like softness to the image, reminiscent of classic black and white photography.\n\nOn the right side of the frame, a blurred yet striking face of Harry Potter subtly emerges from the shadows, not in a traditional pose, but as if caught in a moment of thought or breath. Only a part of his face is visible: perhaps an eye, a cheekbone, the contour of his lips, evoking a sense of mystery, intimacy, and elegance. His features are delicate yet profound, exuding a melancholic and poetic beauty without being overly dramatic.\n\nA gentle, directional light, softly diffused, caresses the curve of his cheek or glints in his eye—this is the emotional core of the image. The rest of the composition is dominated by ample negative space, intentionally kept simple, allowing the image to breathe. There are no texts, no logos in the image—only an interplay of light, shadow, and emotion.\n\nThe overall atmosphere is abstract yet deeply human, like a fleeting glance or a half-remembered dream: intimate, timeless, and poignantly beautiful.",
     "note": ""
   },
@@ -643,7 +758,7 @@
     "category": "art",
     "sourceLink": "https://x.com/umesh_ai/status/1921487841634156999",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-pDsaB4o_oiNIjud_j5ypp.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-pDsaB4o_oiNIjud_j5ypp.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/98/blurred-silhouette-frosted-glass.png",
     "prompt": "A black and white photograph shows the blurred silhouette of a [SUBJECT] behind a frosted or translucent surface. The [PART] is sharply defined and pressed against the surface, creating a stark contrast with the rest of the hazy, indistinct figure. The background is a soft gradient of gray tones, enhancing the mysterious and artistic atmosphere.",
     "note": ""
   },
@@ -654,7 +769,7 @@
     "category": "character",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1921148024861938077",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-FpVTUFWK2dhd1GSysOFdh.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-FpVTUFWK2dhd1GSysOFdh.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/97/cute_cozy_knitted_doll.png",
     "prompt": "A close-up, professionally composed photograph showcasing a hand-crocheted yarn doll gently cradled by two hands. The doll has a rounded shape, featuring the cute chibi image of the [upload image] character, with vivid contrasting colors and rich details. The hands holding the doll are natural and gentle, with clearly visible finger postures, and natural skin texture and light/shadow transitions, conveying a warm and realistic touch. The background is slightly blurred, depicting an indoor environment with a warm wooden tabletop and natural light streaming in from a window, creating a comfortable and intimate atmosphere. The overall image conveys a sense of exquisite craftsmanship and cherished warmth.",
     "note": ""
   },
@@ -665,7 +780,7 @@
     "category": "character",
     "sourceLink": "https://x.com/dotey/status/1920851135516082246",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-qVK6fm-fP8a4-LxpaN7Ji.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-qVK6fm-fP8a4-LxpaN7Ji.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/96/custom-anime-figure-from-photo.png",
     "prompt": "Generate an anime-style figure photo placed on a desktop, presented from a casual, everyday snapshot perspective as if taken with a mobile phone. The figure model is based on the attached character photo, accurately reproducing the full body posture, facial expression, and clothing style of the person in the photo, ensuring the entire figure is fully rendered. The overall design is exquisite and detailed, with hair and clothing featuring natural, soft gradient colors and fine textures. The style leans towards Japanese anime, rich in detail, with realistic textures and a beautiful appearance.",
     "note": ""
   },
@@ -676,7 +791,7 @@
     "category": "art",
     "sourceLink": "https://x.com/thisdudelikesAI/status/1920433372243136730",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-eJzwap7e7KsSwJofY3ij8.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-eJzwap7e7KsSwJofY3ij8.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/95/selfie-to-bobblehead-generator.png",
     "prompt": "Turn this photo into a bobblehead: enlarge the head slightly, keep the face accurate and cartoonify the body. [Place it on a bookshelf].",
     "note": ""
   },
@@ -687,7 +802,7 @@
     "category": "scene",
     "sourceLink": "https://x.com/berryxia_ai/status/1920795648946782583",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-yAd6PqQMt86VX6Nh1QFCl.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-yAd6PqQMt86VX6Nh1QFCl.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/94/three_animals_selfie_at_landmark.png",
     "prompt": "A close-up selfie of three [animal type] with different expressions in front of the iconic [landmark], taken at golden hour with cinematic lighting. The animals are positioned close to the camera with their heads touching, mimicking a selfie pose, showing joyful, surprised, and calm expressions. The background features the full architectural detail of [landmark], softly illuminated, with a warm ambient atmosphere. Shot in a photographic, realistic cartoon style, high detail, 1:1 aspect ratio.",
     "note": ""
   },
@@ -698,7 +813,7 @@
     "category": "art",
     "sourceLink": "https://x.com/egeberkina/status/1920448389960909085",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-QCdSAN2IyigyHVVplpXGL.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-QCdSAN2IyigyHVVplpXGL.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/93/glass_retexturing.png",
     "prompt": "retexture the image attached based on the JSON aesthetic below\n{\n  \"style\": \"photorealistic 3D render\",\n  \"material\": \"glass with transparent and iridescent effects\",\n  \"surface_texture\": \"smooth, polished with subtle reflections and refractive effects\",\n  \"lighting\": {\n    \"type\": \"studio HDRI\",\n    \"intensity\": \"high\",\n    \"direction\": \"angled top-left key light and ambient fill\",\n    \"accent_colors\": [\"blue\", \"green\", \"purple\"],\n    \"reflections\": true,\n    \"refractions\": true,\n    \"dispersion_effects\": true,\n    \"bloom\": true\n  },\n  \"color_scheme\": {\n    \"primary\": \"transparent with iridescent blue, green, and purple hues\",\n    \"secondary\": \"crystal-clear with subtle chromatic shifts\",\n    \"highlights\": \"soft, glowing accents reflecting rainbow-like effects\",\n    \"rim_light\": \"soft reflective light around edges\"\n  },\n  \"background\": {\n    \"color\": \"black\",\n    \"vignette\": true,\n    \"texture\": \"none\"\n  },\n  \"post_processing\": {\n    \"chromatic_aberration\": true,\n    \"glow\": true,\n    \"high_contrast\": true,\n    \"sharp_details\": true\n  }\n}",
     "note": ""
   },
@@ -709,7 +824,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1920355982703509588",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-ZwX4XJBz5BqMcvOXYcen0.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-ZwX4XJBz5BqMcvOXYcen0.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/92/perspective-3d-pop-out-effect.png",
     "prompt": "Hyperrealistic, top-down bird's-eye view shot, a beautiful Instagram model [Anne Hathaway / see reference image], with exquisite and beautiful makeup and fashionable styling, standing on the screen of a smartphone held up by someone. The image creates a strong perspective illusion. Emphasize the 3D effect of the girl standing out from the phone. She wears black-rimmed glasses, high-street fashion, and strikes a cute, playful pose. The phone screen is treated as a dark floor, like a small stage. The scene uses strong forced perspective to show the proportional difference between the hand, the phone, and the girl. The background is clean gray, using soft indoor light, shallow depth of field, and the overall style is surrealistic photorealistic compositing. Very strong perspective.",
     "note": ""
   },
@@ -720,7 +835,7 @@
     "category": "art",
     "sourceLink": "https://x.com/umesh_ai/status/1919701229363466328",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-jPX65pFLBMTvzVaCgSjlz.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-jPX65pFLBMTvzVaCgSjlz.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/91/case.png",
     "prompt": "Transform the image to an ancient treasure map drawn on aged parchment. The map includes detailed elements like sailing ships on the ocean, old ports or castles on the coastline, a dotted path leading to a large 'X' marking the treasure spot, mountains, palm trees, and a decorative compass rose. The overall style is reminiscent of old pirate adventure films.",
     "note": ""
   },
@@ -731,7 +846,7 @@
     "category": "object",
     "sourceLink": "https://x.com/egeberkina/status/1918291652210311278",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-q-57zaITSb7d5Y21Ya6Rk.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-q-57zaITSb7d5Y21Ya6Rk.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/90/case.png",
     "prompt": "ultra-realistic 3D render of four mechanical keyboard keycaps in a tight 2x2 grid, all keys touching. View from an isometric angle. One key is transparent with the word “{just}” printed in {white}. The other three colors are: {black, purple, and white}. One key features the {Github} logo. The other two say \"{fork}\" and \"{it}\". Realistic plastic texture, rounded sculpted keycaps, soft shadows, clean light-gray background.",
     "note": ""
   },
@@ -742,7 +857,7 @@
     "category": "object",
     "sourceLink": "https://x.com/egeberkina/status/1919398870867440124",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry--QWzIYAtO7KC3HthhsjH0.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry--QWzIYAtO7KC3HthhsjH0.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/89/case.png",
     "prompt": "highly detailed 3D render of a single metallic {👍} emoji pin attached to a vertical product card, ultra-glossy chrome finish, smooth rounded 3D icon, stylized futuristic design, soft reflections, clean shadows, paper card has a die-cut euro hole at the top center, bold title “{Awesome}” above the pin, fun tagline “{Smash that ⭐ if you like it!}” below, soft gray background, soft studio lighting, minimal aesthetic",
     "note": ""
   },
@@ -753,7 +868,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1918529055340576812",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-dk3V0sLLTD9fQW0DM9pxn.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-dk3V0sLLTD9fQW0DM9pxn.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/87/case.png",
     "prompt": "Integrate the meaning of the word into the letters, cleverly blending graphics and letters.\nWord: {beautify}\nAdd a brief explanation of the word below.",
     "note": ""
   },
@@ -764,7 +879,7 @@
     "category": "art",
     "sourceLink": "https://sora.com/g/gen_01jtc9btfzef080z31v8w9rtbw",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-uWAtByJ544cdR5nBjMM3H.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-uWAtByJ544cdR5nBjMM3H.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/86/double_exposure.png",
     "prompt": "Double exposure, Midjourney style, merging, blending, overlay double exposure image, Double Exposure style, An exceptional masterpiece by Yukisakura revealing a fantastic double exposure composition of Aragorn son of Arathorn's silhouette harmoniously intertwined with the visually striking, rugged landscapes of Middle Earth during a lively spring season. Sun-bathed pine forests, mountain peaks, and a lone horse cutting through the trail echo outward through the fabric of his figure, adding layers of narrative and solitude. Beautiful tension builds as the stark monochrome background maintains razor-sharp contrast, drawing all focus to the richly layered double exposure. Characterized by its vibrant full-color scheme within Aragorn's silhouette and crisp, deliberate lines that trace every contour with emotional precision. (Detailed:1.45). (Detailed background:1.4).",
     "note": ""
   },
@@ -775,7 +890,7 @@
     "category": "scene",
     "sourceLink": "https://x.com/umesh_ai/status/1917444534239191544",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-nvAEqaxvslDn-p2hCKbHN.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-nvAEqaxvslDn-p2hCKbHN.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/85/case.png",
     "prompt": "A pencil sketch of [Subject 1] interacting with [Subject 2], where [Subject 2] is rendered as a realistic, full-color object, creating a surreal contrast against the hand-drawn style of [Subject 1] and the background",
     "note": ""
   },
@@ -786,7 +901,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1918525296577327574",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-NVse4zVhgYoKSGvN__y-m.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-NVse4zVhgYoKSGvN__y-m.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/84/case.png",
     "prompt": "Create an image of a cute chibi-style silicone wrist rest based on the {🐼} emoji. The wrist rest is made of soft, food-grade silicone with a skin-friendly matte surface. The interior is filled with slow-rebound foam. Designed in a personified cartoon style, the expression is lively, with both arms stretched out as if hugging the user’s wrist while lying on a desk. The overall shape is round, soft, and adorable, featuring the classic {🐼} color scheme. The design is comforting and cute, suitable for office use. The background is a solid white color with soft lighting. Rendered in a product photography style, the angle is either front-facing or at a 45-degree top-down view, showcasing high-definition details and emphasizing the silicone texture and comfort functionality.",
     "note": ""
   },
@@ -797,7 +912,7 @@
     "category": "art",
     "sourceLink": "https://x.com/umesh_ai/status/1914644426334314545",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-ukn_aztzA4yTNGNF1QCTl.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-ukn_aztzA4yTNGNF1QCTl.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/83/case.png",
     "prompt": "A digital illustration of a [SUBJECT], portrayed with a network of glowing clean pristine blue lines outlining its anatomy. The image is set against a dark background, highlighting the [SUBJECT] form and features. A specific area such as [PART] is emphasized with a red glow to indicate a point of interest or significance. The style is both educational and visually captivating, designed to resemble an advanced imaging technique",
     "note": ""
   },
@@ -808,7 +923,7 @@
     "category": "scene",
     "sourceLink": "https://x.com/dotey/status/1917988595228438771",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-xl9zEu7r3VDXO_OZGM1a7.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-xl9zEu7r3VDXO_OZGM1a7.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/82/example.png",
     "prompt": "Show a clear 45-degree bird’s-eye view of an isometric miniature city scene featuring Shanghai’s iconic buildings, such as the Oriental Pearl Tower and the Bund. The weather effect—cloudy—blends softly into the city, interacting gently with the architecture. Use physically based rendering (PBR) and realistic lighting. Solid color background, crisp and clean. Centered composition to highlight the precision and detail of the 3D model. Display “Shanghai Cloudy 20°C” and a cloudy weather icon at the top of the image.",
     "note": ""
   },
@@ -819,7 +934,7 @@
     "category": "art",
     "sourceLink": "https://x.com/azed_ai/status/1917948899098243407",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_aDii7pr31c7nBC30esLt.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_aDii7pr31c7nBC30esLt.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/81/example.png",
     "prompt": "A soft, 3D translucent glass of the attached image with a frosty matte finish and detailed texture, original colors, centered on a light gray background, floats gently in space, soft shadows, natural lighting",
     "note": ""
   },
@@ -829,8 +944,8 @@
     "author": "@umesh_ai",
     "category": "art",
     "sourceLink": "",
-    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-Y5nxZct49r5jpDJgeziht.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-Y5nxZct49r5jpDJgeziht.png?v=1",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-Nc-vAhaIHqHisicziRUQ5.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/79/example_lego_shanghai_bund.png",
     "prompt": "A close-up shot of a hand holding a business card designed to look like a JSON file opened in VS Code. The card shows code formatted in realistic syntax-highlighted JSON code. The window includes typical toolbar icons and a title bar labeled Business Card.json, styled exactly like the interface of VS Code. Background is slightly blurred, keeping the focus on the card.\nThe card displays the following code formatted in JSON:\n{\n  \"name\": \"Jamez Bondos\",\n  \"title\": \"Your Title\",\n  \"email\": \"your@email.com\",\n  \"link\": \"yourwebsite\"\n}",
     "note": ""
   },
@@ -841,7 +956,7 @@
     "category": "art",
     "sourceLink": "https://x.com/egeberkina/status/1917631056980721743",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-jmGRjdDLKOu0Lwb-gg2Se.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-jmGRjdDLKOu0Lwb-gg2Se.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/78/example_retexture_glass_phone.png",
     "prompt": "retexture the image attached based on the json below:\n\n{\n  \"style\": \"photorealistic\",\n  \"material\": \"glass\",\n  \"background\": \"plain white\",\n  \"object_position\": \"centered\",\n  \"lighting\": \"soft, diffused studio lighting\",\n  \"camera_angle\": \"eye-level, straight-on\",\n  \"resolution\": \"high\",\n  \"aspect_ratio\": \"2:3\",\n  \"details\": {\n    \"reflections\": true,\n    \"shadows\": false,\n    \"transparency\": true\n  }\n}",
     "note": ""
   },
@@ -852,7 +967,7 @@
     "category": "scene",
     "sourceLink": "https://x.com/dotey/status/1916530529324699858",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-tcPJYJqWhSiLBt-KMnuyD.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-tcPJYJqWhSiLBt-KMnuyD.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/77/example_crystal_ball_chang_e.png",
     "prompt": "A delicate crystal ball rests quietly on a warm, softly lit tabletop by the window. The background is blurred and hazy, with warm-toned sunlight gently passing through the crystal ball, refracting specks of golden light that softly illuminate the dim surroundings.\nInside the crystal ball, a miniature three-dimensional world themed around {Chang’e Flying to the Moon} is naturally displayed — a finely detailed, dreamlike 3D scene. All characters and objects are rendered in adorable chibi style, exquisitely crafted and visually charming, with vivid emotional interactions between them.\nThe overall atmosphere is rich with East Asian fantasy elements, full of intricate details and a surreal magical realism texture. The entire scene feels poetic and dreamy, luxurious yet elegant, radiating a gentle, comforting glow — as if imbued with life through the warm play of light and shadow.",
     "note": ""
   },
@@ -862,8 +977,8 @@
     "author": "photis (Sora)",
     "category": "character",
     "sourceLink": "https://sora.com/g/gen_01jsfxrdpjfpebnyed8yaz42nf",
-    "geminiImage": "",
-    "gpt4oImage": "",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-8kfas56Jc3-f15O89pzKN.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/75/example_instagram_frame_pearl_earring.png",
     "prompt": "{The Lord of the Rings} anime film poster, the anime is in the style of High School DXD. Visible even folds are seen across the poster as it’s been folded over time, and due to some creases over damaging the poster has caused some physical damage scuffing along the creases and the color has partially faded. Indiscriminate flaps and folds and scratches all around simply from moving back and forth causing subtle yet incremental damage with the ever expanding of entropy we cannot escape, but the loving memories in our hearts will forever be whole. Making the objects we collect along the way priceless is the essence you feel when looking at this nostalgic poster.",
     "note": ""
   },
@@ -874,7 +989,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1917042797506662560",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-8kfas56Jc3-f15O89pzKN.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-8kfas56Jc3-f15O89pzKN.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/75/example_instagram_frame_pearl_earring.png",
     "prompt": "Create a stylized 3D chibi character based on the attached photo, accurately preserving the subject’s facial features and clothing details. The character is making a finger heart with the left hand (with a red heart element above the fingers) and playfully sitting on the edge of a giant Instagram frame, with both legs hanging outside the frame. The top of the frame displays the username “Beauty,” and various social media icons (like, comment, share) float around the scene.",
     "note": ""
   },
@@ -885,7 +1000,7 @@
     "category": "art",
     "sourceLink": "https://x.com/umesh_ai/status/1916517976414495161",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-h3g_ajtU5hs70Yy0tskiN.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-h3g_ajtU5hs70Yy0tskiN.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/74/example_logo_bookshelves.png",
     "prompt": "Create a photograph of a modern bookshelf inspired by the shape of [LOGO]. The bookshelf features flowing, interconnected curves forming multiple sections of varying sizes. It is made of sleek matte black metal with wooden shelves inside the loops. Soft, warm LED lighting outlines the inner curves. The bookshelf is mounted on a neutral-toned wall and holds a mix of colorful books, small plants, and minimalistic art pieces. The overall vibe is creative, elegant, and slightly futuristic",
     "note": ""
   },
@@ -896,7 +1011,7 @@
     "category": "character",
     "sourceLink": "https://x.com/azed_ai/status/1916521742052503804",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-BOHwhmk-H-LxQ398epkPp.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-BOHwhmk-H-LxQ398epkPp.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/73/example_keychain_chibi.png",
     "prompt": "A close-up photo of a cute, colorful keychain held by person's hand. The keychain features a chibi-style of the [attached image ]. The keychain is made of soft rubber with bold black outlines and attached to a small silver keyring, neutral background",
     "note": ""
   },
@@ -907,7 +1022,7 @@
     "category": "art",
     "sourceLink": "https://x.com/azed_ai/status/1915770501705925106",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-jyQlvtvYcyYWu61X_cWk6.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-jyQlvtvYcyYWu61X_cWk6.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/72/gold_pendant_necklace.png",
     "prompt": "A photorealistic close-up of a gold pendant necklace held by female hand. The pendant features a bas-relief engraving of [image /emoji]. The pendant hangs from a polished gold chain. The background is softly blurred with neutral beige tones, and natural lighting, realistic skin tones, Product photography, 16:9 aspect ratio.",
     "note": ""
   },
@@ -917,8 +1032,8 @@
     "author": "terry623",
     "category": "scene",
     "sourceLink": "",
-    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-d4mtCy2DuZk2bkXiDMoOS.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-d4mtCy2DuZk2bkXiDMoOS.png?v=1",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-0fyYo7d2Vc3ufHnXU0fxh.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/70/example_pokemon_strawbit.png",
     "prompt": "A highly detailed miniature [Cyberpunk] landscape viewed from above, using a tilt-shift lens effect. The scene is filled with toy-like elements, all rendered in high-resolution CG. Dramatic lighting creates a cinematic atmosphere, with vivid colors and strong contrast, emphasizing depth of field and a realistic micro-perspective, making the viewer feel as if overlooking a toy world. The image contains many visual jokes and details worth repeated viewing.",
     "note": ""
   },
@@ -929,7 +1044,7 @@
     "category": "art",
     "sourceLink": "https://x.com/Anima_Labs/status/1915044265895379166",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-0fyYo7d2Vc3ufHnXU0fxh.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-0fyYo7d2Vc3ufHnXU0fxh.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/70/example_pokemon_strawbit.png",
     "prompt": "Create an original creature inspired by this object (photo provided). The creature should look like it belongs in a fantasy monster-catching universe, with a cute or cool design influenced by retro Japanese RPG monster art. The image must include:\n– A full-body view of the creature, inspired by the shape, materials or purpose of the object.\n– A small orb or capsule (similar an a pokeball) at its feet, designed with patterns and colors matching the object’s look — not a standard Pokéball, but a custom design.\n– An invented name for the creature, displayed next to or below it. – Its elemental type (e.g., Fire, Water, Metal, Nature, Electric…), based on the object’s core properties. The illustration should look like it comes from a fantasy creature encyclopedia, with clean lines, soft shadows, and an expressive, character-driven design.",
     "note": ""
   },
@@ -940,7 +1055,7 @@
     "category": "art",
     "sourceLink": "https://x.com/umesh_ai/status/1915417277953962048",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-WnFEERTJJbnDpcjKdb35U.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-WnFEERTJJbnDpcjKdb35U.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/69/example_silhouette_art.png",
     "prompt": "The silhouette of a basic outline of a [PROMPT]. The background is bright yellow, and the silhouette is solid black.",
     "note": ""
   },
@@ -951,7 +1066,7 @@
     "category": "art",
     "sourceLink": "https://x.com/hewarsaber/status/1912933875166171515",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-QGCQ1jjuNoKYgwFDo61qW.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-QGCQ1jjuNoKYgwFDo61qW.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/68/example_trading_card_logo_tesla.png",
     "prompt": "{\n    \"prompt\": \"A futuristic trading card with a dark, moody neon aesthetic and soft sci-fi lighting. The card features a semi-transparent, rounded rectangle with slightly muted glowing edges, appearing as if made of holographic glass. At the center is a large glowing logo of {{logo}}, with no additional text or label, illuminated with a smooth gradient of {{colors}}, but not overly bright. The reflections on the card surface should be subtle, with a slight glossy finish catching ambient light. The background is a dark carbon fiber texture or deep gradient with soft ambient glows bleeding into the edges. Add subtle light rays streaming down diagonally from the top, giving the scene a soft cinematic glow. Apply light motion blur to the edges and reflections to give the scene a sense of depth and energy, as if it's part of a high-end tech animation still. Below the card, include realistic floor reflections that mirror the neon edges and logo—slightly diffused for a grounded, futuristic look. Text elements are minimal and softly lit: top-left shows '{{ticker}}', top-right has a stylized signature, and the bottom displays '{{company_name}}' with a serial number '{{card_number}}', a revenue badge reading '{{revenue}}', and the year '{{year}}'. Typography should have a faint glow with slight blurring, and all elements should feel premium, elegant, and softly illuminated—like a high-end cyberpunk collectible card.\",\n    \"style\": {\n        \"lighting\": \"Neon glow, soft reflections\",\n        \"font\": \"Modern sans-serif, clean and minimal\",\n        \"layout\": \"Centered, structured like a digital collectible card\",\n        \"materials\": \"Glass, holographic plastic, glowing metal edges\"\n    },\n    \"parameters\": {\n        \"logo\": \"Tesla logo\",\n        \"ticker\": \"TSLA\",\n        \"company_name\": \"Tesla Inc.\",\n        \"card_number\": \"#0006\",\n        \"revenue\": \"$96.8B\",\n        \"year\": \"2025\",\n        \"colors\": [\n            \"red\",\n            \"white\",\n            \"dark gray\"\n        ]\n    },\n    \"medium\": \"3D render, high-resolution digital art\",\n    \"size\": \"1080px by 1080px\"\n}",
     "note": ""
   },
@@ -962,7 +1077,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1913648013144137840",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-rlprrmpgrWYxzcGFG6cN5.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-rlprrmpgrWYxzcGFG6cN5.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/67/example_Ultra_realistic_3D_game.png",
     "prompt": "Ultra-realistic 3D rendered image that replicates the character design of Natasha from Command & Conquer: Red Alert 3 in 2008, following the original model exactly. The scene is set in a dim and cluttered bedroom from the year 2008. The character is sitting on the carpet, facing an old-fashioned television that is playing Command & Conquer: Red Alert 3 and a game console controller.\nThe entire room is filled with a nostalgic atmosphere of the year 2008: snack packaging bags, soda cans, posters, and tangled wires are everywhere. Natasha Volkova is captured in the moment of turning her head, looking back at the camera over her shoulder. There is an innocent smile on her iconic ethereally beautiful face. Her upper body is slightly twisted, with a natural dynamic, as if she is reacting to being startled by the flash.\nThe flash slightly overexposes her face and clothes, making her silhouette stand out more prominently in the dimly lit room. The whole photo appears raw and natural. The strong contrast between light and dark casts deep shadows behind her. The image is full of tactile feel, with a simulated texture that resembles an authentic film snapshot from 2008.",
     "note": ""
   },
@@ -972,8 +1087,8 @@
     "author": "@ZHO_ZHO_ZHO",
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1914864217867608175",
-    "geminiImage": "",
-    "gpt4oImage": "",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-sleMUJG0_smfYhUJ0x9zk.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/65/surreal-underwater-scene-popsicle.png",
     "prompt": "Transform the {❄️} into a soft 3D object with a silk texture. The entire surface of the object is wrapped in smooth and flowing silk fabric, featuring surreal wrinkle details, soft highlights, and shadows. The object gently floats in the center of a clean light gray background, creating a light and elegant atmosphere. The overall style is surreal, tactile, and modern, conveying a sense of comfort and refined playfulness. Studio lighting, high-resolution rendering.",
     "note": ""
   },
@@ -984,7 +1099,7 @@
     "category": "scene",
     "sourceLink": "https://x.com/madpencil_/status/1920037538372128998",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-sleMUJG0_smfYhUJ0x9zk.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-sleMUJG0_smfYhUJ0x9zk.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/65/surreal-underwater-popsicle.png",
     "prompt": "Tilt POV shot of a hand holding a surreal popsicle with a transparent blue exterior, revealing an underwater scene inside: a tiny scuba diver with tiny fish floating with bubbles, ocean waves crashing, and a green popsicle stick running through the center. The popsicle is melting slightly, with a wooden stick at the bottom, hand is holding it by the wooden stick, soft focus new york street background, premium product photography",
     "note": ""
   },
@@ -995,7 +1110,7 @@
     "category": "art",
     "sourceLink": "https://github.com/f-is-h/f-is-h/blob/main/images/streampank-fish-4.png",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-NwKHSkobGZuQuaTfzYnkk.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-NwKHSkobGZuQuaTfzYnkk.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/64/example_steampunk_fish.jpg",
     "prompt": "A steampunk-style mechanical fish with a brass body and clearly visible gear mechanisms when in motion.\nIts mechanical teeth can be slightly seen, neatly arranged and closed, with both upper and lower teeth visible. Each tooth is triangular in shape and made of diamond material.\nThe tail fin has a metal wire mesh structure, while other fins are made of semi-transparent amber-colored glass with some subtle bubbles inside.\nThe eyes are multi-faceted rubies, with clearly visible reflective shine.\nThe fish has \"f-is-h\" text clearly visible on its body, with all lowercase letters and careful attention to the hyphen placement.\nThe image is square, showing the entire fish in the center of the frame, with its head pointing to the right. There is adequate white space around the fish, with more space on the left and right sides. The background has subtle steampunk-style gear patterns.\nThe entire fish looks very cool. This is a high-definition image with extremely rich details and unique texture and aesthetics. The image should not be too dark.",
     "note": ""
   },
@@ -1006,7 +1121,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1914574278911000967",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-ofHrVK4oclwpJayzpx6C5.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-ofHrVK4oclwpJayzpx6C5.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/63/example_ice_cream_emoji_strawberry.png",
     "prompt": "Generate an image: Transform the [🍓] into a creamy ice cream bar, with cream flowing in curved swirls on top, making it look delicious and tempting. The ice cream is floating at a 45-degree angle in mid-air, rendered in a cute chibi-style 3D aesthetic, set against a solid color background with a unified color palette.",
     "note": ""
   },
@@ -1017,7 +1132,7 @@
     "category": "object",
     "sourceLink": "https://x.com/gnrlyxyz/status/1914303110853583302",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-BZ4bE3tr5QKkaogEl_XQI.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-BZ4bE3tr5QKkaogEl_XQI.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/62/example_enamel_pins_einstein.png",
     "prompt": "Turn the subject in the attached image into a kawaii enamel pin. Use glossy metal outlines and vibrant enamel fill. No extra added features. Square mockup format. White background.",
     "note": ""
   },
@@ -1028,7 +1143,7 @@
     "category": "art",
     "sourceLink": "https://x.com/gizakdag/status/1913925062568144924",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-g1eDis0d0iaIEKLnkUSaa.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-g1eDis0d0iaIEKLnkUSaa.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/60/example_tufted_rug_star_emoji.png",
     "prompt": "Create an image of a colorful, hand-tufted rug in the shape of 🦖 emoji, placed on a simple floor background. The rug has a bold, playful design with soft, fluffy texture and thick yarn details. Shot from above, in natural daylight, with a slightly quirky, DIY aesthetic. Vibrant colors, cartoonish outlines, and tactile, cozy material—similar to handmade tufted art rugs.",
     "note": ""
   },
@@ -1039,7 +1154,7 @@
     "category": "art",
     "sourceLink": "https://x.com/michaelrabone/status/1913865394139316291",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-4z8yN-EVHRBthTnpCB8Ka.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-4z8yN-EVHRBthTnpCB8Ka.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/59/example_vector_poster_london.png",
     "prompt": "Barcelona Spain colourful summer vector art poster with big \"BARCELONA\" title at the top and smaller \"SPAIN\" title under",
     "note": ""
   },
@@ -1050,7 +1165,7 @@
     "category": "art",
     "sourceLink": "https://x.com/umesh_ai/status/1913628737872027805",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-ufKQRU-0zXXlACt_A_DNd.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-ufKQRU-0zXXlACt_A_DNd.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/58/example_cloud_art_dragon_great_wall.png",
     "prompt": "Generate image: A photograph captures a daytime scene with a [SUBJECT/OBJECT] formed by scattered clouds in the sky, positioned above a [LOCATION]",
     "note": ""
   },
@@ -1061,7 +1176,7 @@
     "category": "art",
     "sourceLink": "https://x.com/egeberkina/status/1913654508330058064",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-H0E8EqQ10jrbe0d8q7137.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-H0E8EqQ10jrbe0d8q7137.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/57/example_8bit_pixel_beer.png",
     "prompt": "Create a minimalist 8-bit pixel logo of [🍔], centered on a pure white background. Use a limited retro color palette with pixelated detailing, sharp edges, and clean blocky forms. The logo should be simple, iconic, and clearly recognizable in pixel art style — inspired by classic arcade game aesthetics.",
     "note": ""
   },
@@ -1072,7 +1187,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1913759515700285569",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-0bQpHIpimYLLrSJ8qe6C6.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-0bQpHIpimYLLrSJ8qe6C6.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/56/example_miniature_starbucks_cup_building.png",
     "prompt": "3D chibi-style miniature design of a whimsical Starbucks café, shaped like an oversized takeaway coffee cup complete with a lid and straw. The building has two floors, with large glass windows that clearly reveal a cozy and refined interior: wooden furniture, warm lighting, and busy baristas at work. On the street, cute little figurines are strolling or sitting, surrounded by benches, street lamps, and potted plants, creating a charming corner of the city. The overall aesthetic follows a detailed and realistic miniature cityscape style, with soft lighting that evokes a relaxing afternoon atmosphere.",
     "note": ""
   },
@@ -1083,7 +1198,7 @@
     "category": "art",
     "sourceLink": "https://x.com/azed_ai/status/1923739813414568075",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-KMvfZkLFuvMEzCzBT8ywr.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-KMvfZkLFuvMEzCzBT8ywr.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/55/cute_plant_planter.png",
     "prompt": "A high-quality photo of a cute ceramic [object/animal]-shaped planter with a glossy finish, filled with a variety of vibrant succulents and greenery including a spiky Haworthia, a rosette-shaped Echeveria, and delicate white flowers. The planter has a friendly face and sits on a soft, neutral background with diffused natural lighting, showcasing fine textures and color contrast in a clean, minimalistic composition",
     "note": ""
   },
@@ -1094,7 +1209,7 @@
     "category": "art",
     "sourceLink": "https://x.com/jiamimaodashu/status/1912653073190879410",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-REfe_PfgYfz67f5liafKu.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-REfe_PfgYfz67f5liafKu.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/54/example_ordinary_selfie_eason_nicholas.png",
     "prompt": "Please draw an extremely ordinary and unremarkable iPhone selfie, with no clear subject or sense of composition — just like a random snapshot taken casually. The photo should include slight motion blur, with uneven lighting caused by sunlight or indoor lights resulting in mild overexposure. The angle is awkward, the composition is messy, and the overall aesthetic is deliberately plain — as if it was accidentally taken while pulling the phone out of a pocket.\nThe subjects are Eason Chan and Nicholas Tse, taken at night, next to the Hong Kong Convention and Exhibition Centre, by Victoria Harbour in Hong Kong.",
     "note": ""
   },
@@ -1105,7 +1220,7 @@
     "category": "art",
     "sourceLink": "https://x.com/gizakdag/status/1912858535643197927",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-0QNwJ8orXTqLGNNtoM2Uq.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-0QNwJ8orXTqLGNNtoM2Uq.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/53/example_emoji_cushion_pleading.png",
     "prompt": "Create a high-resolution 3D render of [🥹] designed as an inflatable, puffy object. The shape should appear soft, rounded, and air-filled — like a plush balloon or blow-up toy. Use a smooth, matte texture with subtle fabric creases and stitching to emphasize the inflatable look. The form should be slightly irregular and squishy, with gentle shadows and soft lighting that highlight volume and realism. Place it on a clean, minimal background (light gray or pale blue), and maintain a playful, sculptural aesthetic.",
     "note": ""
   },
@@ -1116,7 +1231,7 @@
     "category": "art",
     "sourceLink": "https://x.com/egeberkina/status/1912521263085482464",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-SoZP2Zw1HCRXGONFdZSDs.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-SoZP2Zw1HCRXGONFdZSDs.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/52/example_paper_craft_emoji_fire.png",
     "prompt": "A paper craft-style \"🔥\" floating on a pure white background. The emoji is handcrafted from colorful cut paper with visible textures, creases, and layered shapes. It casts a soft drop shadow beneath, giving a sense of lightness and depth. The design is minimal, playful, and clean — centered in the frame with lots of negative space. Use soft studio lighting to highlight the paper texture and edges.",
     "note": ""
   },
@@ -1126,8 +1241,8 @@
     "author": "@M_w14_",
     "category": "art",
     "sourceLink": "",
-    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-uvbE1o3K9l86ZW1N1pNML.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-uvbE1o3K9l86ZW1N1pNML.png?v=1",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-K-zMRlzu3y9bErJh5oDDe.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/49/example_fashion_design_cover.png",
     "prompt": "Create a realistic passport page with an entry stamp for [{City}, {Country}]. The stamp should say \"Welcome to {City}\" in bold English, designed in a round or oval shape with decorative borders. Include the word \"ARRIVAL\" and a fictional date like \"15 APR 2025\" Incorporate a subtle silhouette of {Main Landmark} as a background detail within the stamp. Use deep blue or red ink with light smudges for added realism. The stamp should appear slightly angled, as if hand-pressed. The passport page should show visible paper texture and security patterns.",
     "note": ""
   },
@@ -1138,7 +1253,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1912536019905233194",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-K-zMRlzu3y9bErJh5oDDe.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-K-zMRlzu3y9bErJh5oDDe.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/49/fashion-magazine-cover.png",
     "prompt": "A beautiful woman wearing a pink qipao, adorned with delicate floral accessories on her head and colorful blossoms woven into her hair. Around her neck is an elegant white lace collar. One of her hands gently holds several large butterflies. The overall photography style features high-definition detail and texture, resembling a fashion magazine cover. The word “FASHION DESIGN” is placed at the top center of the image. The background is a minimalist light gray, designed to highlight the subject.",
     "note": ""
   },
@@ -1148,8 +1263,8 @@
     "author": "@BrettFromDJ",
     "category": "art",
     "sourceLink": "",
-    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-DePREjDt3nz6nxtQSWCtb.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-DePREjDt3nz6nxtQSWCtb.png?v=1",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-OdsAa2Rkg3eU7abakGfNZ.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/47/example_esc_keycap_diorama.png",
     "prompt": "Take the icon on the right and transform it into a voxel 3d icon like the icons in the left image. Octane render. 8k.",
     "note": ""
   },
@@ -1160,7 +1275,7 @@
     "category": "object",
     "sourceLink": "https://x.com/egeberkina/status/1911368319212408926",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-OdsAa2Rkg3eU7abakGfNZ.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-OdsAa2Rkg3eU7abakGfNZ.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/47/esc-keycap-miniature-diorama.png",
     "prompt": "A hyper-realistic isometric 3D render of a miniature computer setup inside a translucent mechanical keyboard keycap, specifically placed on the ESC key of a real matte-finished mechanical keyboard. Inside the keycap, a tiny figure sits in a modern ergonomic chair, wearing a cozy textured hoodie, working at a glowing ultra-realistic computer screen. The environment is packed with lifelike miniature tech accessories: real-material desk lamps, monitors with reflections, tiny speaker grills, tangled cables, and ceramic mugs. The base of the scene is made of soil, rocks, and moss, with photorealistic textures and imperfections. The lighting inside the cap mimics natural morning sun, casting soft shadows and warm tones, while the outside has cold ambient reflections from the surrounding keyboard. The word “ESC” is subtly etched onto the top of the translucent keycap with a faint frosted glass effect — just barely visible depending on the angle. The surrounding keyboard keys like F1, Q, Shift, and CTRL are crisp, textured, and photorealistically lit. Shot as if taken with a high-end mobile phone camera, with shallow depth of field, perfect white balance, and cinematic detail.",
     "note": ""
   },
@@ -1171,7 +1286,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1911724629460455896",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-iw-Sugn5aVfAVnJxGSU_e.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-iw-Sugn5aVfAVnJxGSU_e.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/46/example_happy_capsule.png",
     "prompt": "Title (large text): Fast-Acting Happiness Capsule\nA capsule pill with a green top in Starbucks green and a transparent bottom, printed with the Starbucks logo. Inside the capsule are numerous coffee beans.\nDescription (small text): Take when feeling sad or down. Three times a day, two capsules per dose.\nBuy button: Same color as the capsule.\nBelow the button, display the price: $9.\nPlease follow medical advice and purchase as needed.",
     "note": ""
   },
@@ -1182,7 +1297,7 @@
     "category": "character",
     "sourceLink": "https://x.com/dotey/status/1911988003729203648",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-JnhtyfaWRLJ48py1Fs2L8.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-JnhtyfaWRLJ48py1Fs2L8.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/45/example_university_mascot_npu.png",
     "prompt": "Create a personified 3D chibi-style anime girl character representing {Northwestern Polytechnical University}, embodying the school’s distinctive strengths in {aeronautics, astronautics, and marine engineering}.",
     "note": ""
   },
@@ -1193,7 +1308,7 @@
     "category": "character",
     "sourceLink": "https://x.com/berryxia_ai/status/1911334046724165905",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-4fs3Id9SWxlM-gUGoQ9Pl.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-4fs3Id9SWxlM-gUGoQ9Pl.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/44/example_rpg_card_designer.png",
     "prompt": "Create a digital character card in RPG collectible style.\nThe subject is a {Programmer}, standing confidently with tools or symbols relevant to their job.\nRender it in 3D cartoon style, soft lighting, vivid personality.\nInclude skill bars or stats like [Skill1 +x], [Skill2 +x, e.g., Creativity +10, UI/UX +8].\nAdd a title banner on top and a nameplate on the bottom.\nFrame the card with clean edges like a real figure box.\nMake the background fit the profession's theme.\nColors: warm highlights, profession-matching hues.",
     "note": ""
   },
@@ -1204,7 +1319,7 @@
     "category": "art",
     "sourceLink": "https://x.com/balconychy/status/1909908568129655248",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-MoV0NzeVQ2AZEaSbMYqfl.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-MoV0NzeVQ2AZEaSbMYqfl.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/42/example_3d_q_snowglobe_couple.png",
     "prompt": "Transform the person in the attached image into a snow globe scene.\nOverall environment: The snow globe is placed on a tabletop by the window, with a blurred, warm-toned background. Sunlight passes through the globe, casting golden sparkles that gently illuminate the surrounding darkness.\nInside the globe: The characters are in a cute chibi-style 3D design, gazing at each other with eyes full of love.",
     "note": ""
   },
@@ -1214,8 +1329,8 @@
     "author": "@dotey",
     "category": "scene",
     "sourceLink": "https://x.com/dotey/status/1911609122547449886",
-    "geminiImage": "",
-    "gpt4oImage": "",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-XDM_nzoGX3B2jB9L7igPb.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/40/example_two_panel_manga_president.png",
     "prompt": "Miniature three-dimensional scene presentation using tilt-shift photography techniques, depicting a chibi-style version of the scene {Sun Wukong’s Three Battles with the White Bone Demon}",
     "note": ""
   },
@@ -1226,7 +1341,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1905103477879267823",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-RaHNLaeUbUIIBk4628lgB.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-RaHNLaeUbUIIBk4628lgB.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/39/example_fantasy_computer_head_portal.png",
     "prompt": "A cartoon-style character with a smiling computer monitor as its head, wearing gloves and boots, happily jumping through a glowing, blue, circular portal in a lush, fantasy forest landscape. The forest is detailed with large trees, mushrooms, flowers, a serene river, floating islands, and an atmospheric starry night sky with multiple moons. Bright, vibrant colors with soft lighting, fantasy illustration style.",
     "note": ""
   },
@@ -1237,7 +1352,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1907870919852179850",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-IYHHoIpU4W019PKtENm5m.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-IYHHoIpU4W019PKtENm5m.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/38/example_hand_drawn_infographic.png",
     "prompt": "Create a hand-drawn style infographic card in a 9:16 vertical format. The card should have a clear theme, with a beige or off-white paper-textured background. The overall design should reflect a simple, warm, and handmade aesthetic.\n\nAt the top of the card, use large, eye-catching brush-style Chinese cursive calligraphy in red and black for the title, creating strong visual contrast. All text should be in Chinese cursive script. The layout should be divided into 2 to 4 clear sections, each conveying a core idea through concise and refined Chinese phrases. The calligraphy should maintain a fluid, rhythmic style that is both legible and artistically expressive. Leave appropriate blank space around the text.\n\nThe card should be accented with simple and fun hand-drawn illustrations or icons — such as figures or symbolic elements — to enhance visual appeal and spark thought or emotional resonance. The overall layout should emphasize visual balance and include ample whitespace, ensuring the design is clean, clear, and easy to read.\n\n“Building a personal brand (IP) is long-term compounding.\nKeep updating daily, and results will come — because 99% of people can’t keep it up!”",
     "note": ""
   },
@@ -1248,7 +1363,7 @@
     "category": "art",
     "sourceLink": "https://x.com/aziz4ai/status/1925301120252924356",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-XwSqExH2NYE4F5AvJ_-X4.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-XwSqExH2NYE4F5AvJ_-X4.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/37/pastel_power_3d_ads.png",
     "prompt": "a soft 3D cartoon-style sculpture of [brand product], made of smooth clay-like textures and vibrant pastel colors, placed in a minimalist isometric scene that complements the product’s nature, clean composition, gentle lighting, subtle shadows, with the product’s logo and a 3-word slogan displayed clearly below",
     "note": ""
   },
@@ -1258,8 +1373,8 @@
     "author": "gizakdag",
     "category": "art",
     "sourceLink": "",
-    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-UDSfh81o50kmjmgX5BuTy.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-UDSfh81o50kmjmgX5BuTy.png?v=1",
+    "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-ypjUbOaP1AqH_HBZ4VisI.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/34/example_hand_drawn_infographic_cognition.png",
     "prompt": "Transform a simple flat vector icon of [🎃] into a soft, 3D fluffy object. The shape is fully covered in fur, with hyperrealistic hair texture and soft shadows. The object is centered on a clean, light gray background and floats gently in space. The style is surreal, tactile, and modern, evoking a sense of comfort and playfulness. Studio lighting, high-resolution render.",
     "note": ""
   },
@@ -1270,7 +1385,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1923264349050675329",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-dHSoKQFhVLIqAdUKxXzwQ.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-dHSoKQFhVLIqAdUKxXzwQ.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/32/3d_papercraft_popup_book.png",
     "prompt": "Multi-layered foldable paper sculpture pop-up book, placed on a desk, with a clean background highlighting the main subject. The book presents a 3D flip-book style, with a 2:3 vertical aspect ratio. The open pages display the scene of [Nezha Demon Child version battling Ao Bing]. All elements are finely foldable and assembled, showcasing a realistic and delicate texture of folded paper. The composition uniformly adopts a frontal perspective, with an overall dreamy and beautiful visual style, vibrant and gorgeous colors, full of a fantastical and lively story atmosphere.",
     "note": ""
   },
@@ -1281,7 +1396,7 @@
     "category": "character",
     "sourceLink": "https://x.com/richardchang/status/1909086122959139312",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-qVK6fm-fP8a4.jpeg",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-qVK6fm-fP8a4.jpeg",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/31/example_naruto_stickers.png",
     "prompt": "Naruto stickers",
     "note": ""
   },
@@ -1292,7 +1407,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1905020833451348283",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-YDjMSDxDmJiQmon9y0aQx.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-YDjMSDxDmJiQmon9y0aQx.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/30/example_35mm_moscow_flying_island.png",
     "prompt": "35 mm photo of Moscow floating in the sky on a flying islands.",
     "note": ""
   },
@@ -1303,7 +1418,7 @@
     "category": "character",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1909892294217781714",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-cX5uRn99v6ieXg54VaMkT.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-cX5uRn99v6ieXg54VaMkT.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/29/example_pearl_earring_ootd.png",
     "prompt": "Generate a Q-style 3D C4D-rendered character based on the person in the photo, dressed in a fashion-forward “outfit of the day” (OOTD) inspired by a specific profession.\nProfession: Fashion Designer\n– Keep the original facial features and character pose\n– Stylize the character with a cute, long-legged chibi proportion\n– Outfit and accessories should reflect the profession, including trendy designer wear, glasses, sketchbook or tablet, and stylish shoes\n– Match the outfit with fashion accessories to complete the look\n– Use a solid background color that complements the character’s overall color palette (no gradients or textures)\n\nComposition: Aspect ratio: 9:16\nTop text: “OOTD”\nLeft side: the full-body chibi character wearing the complete outfit\nRight side: individual clothing items and accessories laid out separately, as if in a style breakdown",
     "note": ""
   },
@@ -1314,7 +1429,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1908044836953108490",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_-Z8i4AiVnM8dH6b2eJwc.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_-Z8i4AiVnM8dH6b2eJwc.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/28/example_flat_sticker_pearl_earring.png",
     "prompt": "Turn this photo into a chibi-style sticker illustration in a minimalist flat design.\n– Keep the character’s recognizable features\n– Use a cute, simplified aesthetic\n– The sticker should have a thick white border\n– The character should break out of the circular frame, adding a playful touch\n– The circular base should be a solid flat color (no 3D or gradients)\n– Background should be transparent\nThe overall style should be clean, modern, and visually appealing for use as a fun Q-version sticker.",
     "note": ""
   },
@@ -1325,7 +1440,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1909800530739679488",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-z1V0ZUVo8ombk-OD14InN.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-z1V0ZUVo8ombk-OD14InN.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/27/example_chibi_emoji_pack.png",
     "prompt": "Create a brand-new set of chibi-style stickers featuring the user as the main character, with six unique poses:\n  1.\tMaking a playful peace sign with both hands and winking.\n  2.\tTearful eyes and slightly trembling lips, showing a cute crying expression.\n  3.\tArms wide open in a warm, enthusiastic hug pose.\n  4.\tLying on their side asleep, resting on a tiny pillow with a sweet smile.\n  5.\tPointing forward with confidence, surrounded by shining visual effects.\n  6.\tBlowing a kiss, with heart symbols floating around.\nMaintain the chibi aesthetic:\n– Exaggerated, expressive big eyes\n– Soft facial lines\n– Playful, short black hairstyle\n– A white outfit with a bold neckline design\nBackground: Vibrant red with star or colorful confetti elements for decoration. Leave some clean white space around each sticker.\nAspect ratio: 9:16",
     "note": ""
   },
@@ -1336,7 +1451,7 @@
     "category": "character",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1909542765857587310",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-AwueZe4-K5TmsFTdgWEIV.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-AwueZe4-K5TmsFTdgWEIV.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/26/example_master_oats_ad.png",
     "prompt": "“Master Oats”: Based on the visual features of the person in the uploaded photo, generate a custom oatmeal mix that reflects their personality traits — for example, using vegetables, fruits, yogurt, whole grains, etc.\n\nDesign a unique cereal box and package aesthetic that aligns with this tailored mix.\n\nThen, create an advertising cover featuring the person as the mascot on the cereal box. The character should retain their recognizable features but be transformed into a cute chibi-style 3D figure with a C4D-quality rendering.\n\nThe oatmeal and packaging should be presented in a setting that matches the mood — such as a minimalist kitchen, a sleek supermarket display, or a clean design counter.\n\nThe process includes:\n– Character analysis and oat mix pairing\n– Cereal box concept and design\n– Display environment selection\n– Final image with mascot figure, packaging, and styled scene composition\n\nAll visuals should be balanced, modern, and appealing, reflecting a premium and fun oat brand identity.",
     "note": ""
   },
@@ -1347,7 +1462,7 @@
     "category": "art",
     "sourceLink": "https://x.com/0xdlk/status/1906843247432929642",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-FmnXy_FIA3t2o2JM1Acw7.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-FmnXy_FIA3t2o2JM1Acw7.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/25/example_minimalist_3d_toilet.png",
     "prompt": "Generate a toilet with the following JSON profile:\n{\n  \"art_style_profile\": {\n    \"style_name\": \"Minimalist 3D Illustration\",\n    \"visual_elements\": {\n      \"shape_language\": \"Rounded edges, smooth and soft forms with simplified geometry\",\n      \"colors\": {\n        \"primary_palette\": [\"Soft beige, light gray, warm orange\"],\n        \"accent_colors\": [\"Warm orange for focal elements\"],\n        \"shading\": \"Soft gradients with smooth transitions, avoiding harsh shadows or highlights\"\n      },\n      \"lighting\": {\n        \"type\": \"Soft, diffused lighting\",\n        \"source_direction\": \"Above and slightly to the right\",\n        \"shadow_style\": \"Subtle and diffused, no sharp or high-contrast shadows\"\n      },\n      \"materials\": {\n        \"surface_texture\": \"Matte, smooth surfaces with subtle shading\",\n        \"reflectivity\": \"Low to none, avoiding glossiness\"\n      },\n      \"composition\": {\n        \"object_presentation\": \"Single, central object displayed in isolation with ample negative space\",\n        \"perspective\": \"Slightly angled, giving a three-dimensional feel without extreme depth\",\n        \"background\": \"Solid, muted color that complements the object without distraction\"\n      },\n      \"typography\": {\n        \"font_style\": \"Minimalistic, sans-serif\",\n        \"text_placement\": \"Bottom-left corner with small, subtle text\",\n        \"color\": \"Gray, low-contrast against the background\"\n      },\n      \"rendering_style\": {\n        \"technique\": \"3D render with simplified, low-poly aesthetics\",\n        \"detail_level\": \"Medium detail, focusing on form and color over texture or intricacy\"\n      }\n    },\n    \"purpose\": \"To create clean, aesthetically pleasing visuals that emphasize simplicity, approachability, and modernity.\"\n  }\n}",
     "note": ""
   },
@@ -1358,7 +1473,7 @@
     "category": "character",
     "sourceLink": "https://x.com/dotey/status/1909047283485671924",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-jCu4umK_f5nXmIbJCXh8U.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-jCu4umK_f5nXmIbJCXh8U.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/24/funko-pop-james-bond-figure-and-box.png",
     "prompt": "Transform the person in the photo into the style of a Funko Pop figure box, presented in isometric view.\nThe packaging is labeled with the title “JAMES BOND.”\nInside the box, display a chibi-style figure based on the person in the photo, along with their essential accessories: a pistol, a wristwatch, a suit, and other signature items.\nNext to the box, show a realistic rendering of the actual figure outside the packaging, with detailed textures and lighting to achieve a lifelike product display.",
     "note": ""
   },
@@ -1380,7 +1495,7 @@
     "category": "art",
     "sourceLink": "https://x.com/balconychy/status/1905507936526627078",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-JrohnNyUR5N1InLRZ6i--.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-JrohnNyUR5N1InLRZ6i--.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/22/xiaohongshu-cover-image.png",
     "prompt": "Draw an image: Create a cover for a Xiaohongshu (RED) post.\n\nRequirements:\n– It must be visually compelling enough to attract user clicks.\n– Use bold, characterful fonts.\n– Vary font sizes to reflect the hierarchy of information; emphasize the structure of the copy.\n– The main title should be at least twice the size of regular text.\n– Leave white space between text sections.\n– Only use bright accent colors to highlight key words and draw attention.\n– The background should feature an eye-catching pattern (such as paper texture, notebook, or a WeChat chat window—choose one).\n– Add appropriate icons or illustrations to enhance visual layers, but avoid visual clutter.\n\nCopy text:\nBREAKING: ChatGPT just got even better!\n– Superior multitasking ✨\n– Stronger coding ability 💪\n– Creativity off the charts 🎨\nTry it now!\n\nImage aspect ratio: 9:16",
     "note": ""
   },
@@ -1391,7 +1506,7 @@
     "category": "character",
     "sourceLink": "https://x.com/leon_yuan2001/status/1923712069209293014",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-bO9aE1WYvho9xC8XEFiTX.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-bO9aE1WYvho9xC8XEFiTX.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/21/chibi_character_sticker_pack.png",
     "prompt": "Please create a set of 9 Chibi stickers featuring [the character in the reference image], arranged in a 3x3 grid.\nDesign requirements:\n- Transparent background.\n- 1:1 square aspect ratio.\n- Consistent Chibi Ghibli cartoon style with vibrant colors.\n- Each sticker must have a unique action, expression, and theme, reflecting diverse emotions like \"sassy, mischievous, cute, frantic\" (e.g., rolling eyes, laughing hysterically on the floor, soul leaving body, petrified, throwing money, foodie mode, social anxiety attack). Incorporate elements related to office workers and internet memes.\n- Each character depiction must be complete, with no missing parts.\n- Each sticker must have a uniform white outline, giving it a sticker-like appearance.\n- No extraneous or detached elements in the image.\n- Strictly no text, or ensure any text is 100% accurate (no text preferred).",
     "note": ""
   },
@@ -1402,7 +1517,7 @@
     "category": "character",
     "sourceLink": "https://x.com/dotey/status/1920994118580183316",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-bTTNaqHmHzMMpw8IYMM4Q.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-bTTNaqHmHzMMpw8IYMM4Q.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/20/action_figure_and_real_person_in_frame.png",
     "prompt": "In a casual, everyday style as if shot on a mobile phone, an anime figure of [Jackie Chan] is placed on a desk, striking an exaggerated and cool pose, fully equipped. Simultaneously, the corresponding real-life person also appears in the frame, striking a similar pose to the figure, creating an interesting visual contrast with the figure and the real person in the same frame. The overall composition is harmonious and natural, delivering a warm and vibrant, true-to-life visual experience.",
     "note": ""
   },
@@ -1413,7 +1528,7 @@
     "category": "art",
     "sourceLink": "https://x.com/TheRelianceAI/status/1925223613055017251",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-rzMTo8854xv3HS3hVS88M.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-rzMTo8854xv3HS3hVS88M.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/19/country_diorama_in_toy_box.png",
     "prompt": "An ultra-realistic top-down photograph of a 3D-printed diorama inside a beige cardboard box, with the lid being held open by two human hands. The interior of the box reveals a miniature landscape of [COUNTRY NAME], featuring iconic landmarks, terrain, buildings, rivers, vegetation, and crowds of tiny, detailed human figures. The diorama is filled with vibrant, geographically appropriate elements, all crafted in a tactile, toy-like style using matte 3D-printed textures with visible layer lines. At the top, the inside of the box lid displays the phrase “[COUNTRY NAME]” in large, colorful, raised plastic letters—each letter in a different bright color. The lighting is warm and cinematic, highlighting the textures and shadows to evoke a sense of realism and charm, as if the viewer is opening a magical miniature version of the nation",
     "note": ""
   },
@@ -1424,7 +1539,7 @@
     "category": "art",
     "sourceLink": "https://animeai.online/#demo-gallery",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-fuxTM5hVn0yk_YDur6hZR.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-fuxTM5hVn0yk_YDur6hZR.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/18/pixar-style-godfather-scene.png",
     "prompt": "Redraw this photo in Pixar 3D style",
     "note": ""
   },
@@ -1435,7 +1550,7 @@
     "category": "art",
     "sourceLink": "https://x.com/Gdgtify/status/1925176250626159053",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-KBSeWJJB1EetQNuVABsg1.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-KBSeWJJB1EetQNuVABsg1.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/17/retro_crt_computer_boot_screen.png",
     "prompt": "Retro CRT computer boot screen that resolves into ASCII-art of [shape or logo]",
     "note": ""
   },
@@ -1446,7 +1561,7 @@
     "category": "character",
     "sourceLink": "https://x.com/Alittlefatwhale/status/1922512847030124905",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-Ca-5YJ46y4a9sscNaxYEu.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-Ca-5YJ46y4a9sscNaxYEu.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/16/anime_style_badge.png",
     "prompt": "Based on the person in the attachment, generate a photo of an anime-style badge. Requirements:\nMaterial: Tassel\nShape: Circular\nMain subject: A hand holding the badge",
     "note": ""
   },
@@ -1457,7 +1572,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1905287637084274742",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-xGmNg1hgJY0uyFt3rz2cK.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-xGmNg1hgJY0uyFt3rz2cK.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/15/example_gpt_involution_poster.png",
     "prompt": "Satirical Poster Text (English):\nGPT-4o is taking over.\nForget working in image AI\nmaybe it’s time to deliver takeout instead.",
     "note": ""
   },
@@ -1468,7 +1583,7 @@
     "category": "character",
     "sourceLink": "https://x.com/dotey/status/1909047547563213145",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-NvCTQQUq05OW6oKH5qwRq.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-NvCTQQUq05OW6oKH5qwRq.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/14/example_one_piece_figure_creation.png",
     "prompt": "Transform the person in the photo into a One Piece-themed anime-style action figure, presented inside a collectible figure box designed in the visual style of the One Piece universe. The box is shown in an isometric view.\nInside the box, display the character reimagined in the One Piece anime art style, posed dynamically and accompanied by essential everyday items such as a pistol, a wristwatch, a suit, and leather shoes — all miniaturized and arranged like collectible accessories.\nNext to the box, include a realistic, fully rendered version of the actual figure itself, outside of the packaging. This figure should be rendered with high detail and realism, showcasing the material textures and craftsmanship, as if it were a professionally photographed product.",
     "note": ""
   },
@@ -1479,7 +1594,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1908194518345678865",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-DT8wukx2fHHcrxXQosaRL.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-DT8wukx2fHHcrxXQosaRL.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/13/example_photo_to_3d_q.png",
     "prompt": "Transform the characters in the scene into 3D chibi-style figures, while keeping the original scene layout and their clothing exactly the same.",
     "note": ""
   },
@@ -1490,7 +1605,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1909332895115714835",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-YWXXlSDRM9VTziQ-IA2WS.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-YWXXlSDRM9VTziQ-IA2WS.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/12/example_3d_collectible_couple_box.png",
     "prompt": "Create a finely crafted, adorably charming 3D-rendered collectible figure based on the subjects in the photo, displayed inside a pastel-toned, warm and romantic presentation box. The box is designed in a soft cream color with gentle gold accents, resembling an elegant portable jewelry case.\n\nWhen opened, the box reveals a heartwarming romantic scene: two chibi-style characters gazing sweetly at each other. The lid is engraved with the words “FOREVER TOGETHER,” surrounded by delicate star and heart motifs.\n\nInside the box stands the female from the photo, holding a small bouquet of white flowers. Beside her is her partner, the male from the photo. Both characters have large, expressive, sparkling eyes and soft, warm smiles that radiate affection and charm.\n\nBehind them is a round window, through which a sunny skyline of a traditional Chinese town can be seen, along with gently drifting clouds. The interior is softly lit with warm ambient lighting, and petals float in the background to enhance the atmosphere.\n\nThe overall color scheme of both the display box and the characters is elegant and harmonious, creating a luxurious and dreamlike miniature keepsake.\n\nAspect ratio: 9:16",
     "note": ""
   },
@@ -1501,7 +1616,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1910514811756065159",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-Z83GBoUT3DwcvoN5sHm0s.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-Z83GBoUT3DwcvoN5sHm0s.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/10/example_maga_hat_cartoon.png",
     "prompt": "An illustration in satirical comic style, rendered in a vintage American comic aesthetic. The background features a multi-tiered shelf stocked entirely with identical red baseball caps. The caps have a bold slogan on the front: “MAKE AMERICA GREAT AGAIN,” while a white side tag on each reads “MADE IN CHINA.” The composition uses a close-up perspective focusing on one specific red cap.\nAt the bottom of the image, a price label is shown: the original price “$50.00” is crossed out with a thick black X and replaced with “$77.00.” The overall color palette uses nostalgic ochre and deep red tones, with shading that mimics the textured print style of 1990s retro comics.\nThe composition is exaggerated and satirical, carrying a strong critique of political consumerism.",
     "note": ""
   },
@@ -1512,7 +1627,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1921906728763105394",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-DtLAhr11gXRLHpr6gewDw.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-DtLAhr11gXRLHpr6gewDw.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/9/minimalist_futurist_poster.png",
     "prompt": "A vertical (3:4) 4K-resolution minimalist futurist exhibition poster with an ultra-light cool gray background (#f4f4f4).\n\nAt the center of the poster is a fluid 3D metaball shaped like a classic Coca-Cola bottle in full form, rendered in frosted glass with delicate grainy noise.\nThe fluid gradient transitions from Coca-Cola Red (#E41C23) to Pearl White (#FFFFFF), giving it a silky glass-like appearance.\n\nHigh-position softbox lighting casts long, soft colored shadows and a subtle halo.\n\nThe fluid overlaps with the text: letters obscured by the frosted glass appear with a gentle Gaussian blur.\n•The main title, the classic red “Coca-Cola” logo, is centered and partially obscured by the fluid. The covered letters are slightly blurred through the frosted glass.\n•The subtitle, in bold all-caps modern sans-serif pure black font, reads: “TASTE THE FEELING”, placed below the main title. It is also partially overlapped by the fluid and blurred in those areas, while the rest remains sharp.\n\nThe overall layout is clean with generous whitespace, balanced composition, sharp focus, and HDR high dynamic range.",
     "note": ""
   },
@@ -1523,7 +1638,7 @@
     "category": "character",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1910644499354968091",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini--GfTzdWQbEMLDiJiRLZ0T.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini--GfTzdWQbEMLDiJiRLZ0T.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/8/example_lego_collectible.png",
     "prompt": "Generate a vertically-oriented image based on my uploaded photo, using the following prompt:\nClassic LEGO minifigure style in a miniature scene — an animal stands beside me. The color palette of the animal should match mine.\nPlease design the animal based on your understanding of me. You may choose any creature — real, surreal, or fantastical — that you feel best reflects my personality.\nThe entire scene is set within a transparent glass cube, with a minimalist interior design.\nThe base of the miniature is matte black with silver accents, following a clean and modern aesthetic.\nOn the base, there is an elegantly engraved nameplate in a refined serif font, displaying the name of the animal.\nThe lower part of the base subtly incorporates finely etched biological classification details, similar to a natural history museum display.\nThe overall composition should resemble a high-end collectible artwork: meticulously crafted, curated in style, and lit with refined lighting.\nBalance is key to the layout. The background should feature a smooth gradient transition from dark to light tones, selected to match the dominant color theme.",
     "note": ""
   },
@@ -1534,7 +1649,7 @@
     "category": "art",
     "sourceLink": "https://x.com/ZHO_ZHO_ZHO/status/1910698005193515370",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-gjew3NuDghjCdTN4hNcAd.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-gjew3NuDghjCdTN4hNcAd.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/7/example_personalized_room.png",
     "prompt": "Design a cozy bedroom in a cute 3D style with C4D-quality rendering, presented in an isometric view. The room includes a bed, bookshelf, sofa, green plants, a computer desk, and a computer setup. A framed painting hangs on the wall. Outside the window, a nighttime cityscape is visible with glowing buildings and a dark sky. All furniture and objects should have a soft, rounded, stylized design to match the cute 3D aesthetic. Lighting should be warm and inviting, creating a comfortable nighttime indoor atmosphere.",
     "note": ""
   },
@@ -1545,7 +1660,7 @@
     "category": "character",
     "sourceLink": "https://x.com/dotey/status/1908910838636765204",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_NKwGXWrnvn2lkTyd9BcW.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_NKwGXWrnvn2lkTyd9BcW.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/6/example_portal_crossing_handhold.png",
     "prompt": "A 3D chibi-style version of the person in the photo is stepping through a glowing portal, reaching out and holding the viewer’s hand. As the character pulls the viewer forward, they turn back with a dynamic glance, inviting the viewer into their world.\nBehind the portal is the viewer’s real-life environment: a typical programmer’s study with a desk, monitor, and laptop, rendered in realistic detail. Inside the portal lies the character’s 3D chibi world, inspired by the photo, with a cool blue color scheme that sharply contrasts with the real-world surroundings.\nThe portal itself is a perfectly elliptical frame glowing with mysterious blue and purple light, positioned at the center of the image as a gateway between the two worlds.\nThe scene is captured from a third-person perspective, clearly showing the viewer’s hand being pulled into the character’s world. Use a 2:3 aspect ratio.",
     "note": ""
   },
@@ -1556,7 +1671,7 @@
     "category": "art",
     "sourceLink": "https://animeai.online/#demo-gallery",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-X0RI3ZzR8ycbFfn-1fHDY.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry-X0RI3ZzR8ycbFfn-1fHDY.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/5/ghibli-style-mona-lisa.png",
     "prompt": "Redraw this photo in Ghibli style",
     "note": ""
   },
@@ -1567,7 +1682,7 @@
     "category": "character",
     "sourceLink": "https://x.com/balconychy/status/1909418699150237917",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-xLsI7aK4zyVWcRwJ46a2E.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-xLsI7aK4zyVWcRwJ46a2E.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/4/example_q_chinese_wedding.png",
     "prompt": "Transform the two people in the photo into chibi-style 3D cartoon characters, dressed in traditional Chinese wedding attire. The overall theme is a festive red Chinese-style wedding. The background features a decorative “囍” (double happiness) paper-cut pattern in a classic folk style. \nClothing (realistic texture, traditional details):\nMale: Wearing a red changpao and magua (traditional robe and jacket) embroidered with golden dragon motifs, symbolizing nobility and grandeur. A large red flower is tied on his chest, representing celebration and good fortune.\nFemale: Dressed in a red xiuhe wedding gown adorned with exquisite golden floral and phoenix embroidery, showcasing elegance and luxury. She wears delicate floral hair ornaments to enhance her gentle and graceful appearance.\nHeadwear:\nMale: A traditional red zhuangyuan (scholar) hat with golden patterns and a refined golden ornament at the top, exuding classic scholarly dignity.\nFemale: A phoenix crown adorned with a central red flower, gold 3D decorative elements, and hanging tassels—luxurious and full of classical charm.\nThis image should reflect the joy and blessing of a traditional Chinese wedding, with realistic textures for costumes and accessories, combined with stylized 3D chibi characters.",
     "note": ""
   },
@@ -1578,7 +1693,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1905251524248248650",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-thZejMgX0PGR1nPyj1Z3t.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-thZejMgX0PGR1nPyj1Z3t.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/3/example_vintage_poster.png",
     "prompt": "A retro-style promotional poster emphasizing bold Chinese text. The background features a red-and-yellow radial burst pattern. In the center of the composition is a beautiful young woman illustrated in a refined vintage art style—she smiles warmly with a graceful, approachable presence. The poster advertises GPT’s latest AI image generation service with key slogans in Chinese, such as: “Shocking price: 9.9 per image”, “Supports all scenes, image blending, partial redrawing”, “3 revisions per image”, and “Direct AI output with no need for manual edits”. At the bottom, prominently display the call-to-action: “If you’re interested, click ‘I want this’ in the bottom-right corner”. Illustrate a hand pressing a button in the bottom-right, and place the OpenAI logo in the bottom-left.",
     "note": ""
   },
@@ -1589,7 +1704,7 @@
     "category": "art",
     "sourceLink": "https://x.com/dotey/status/1908238003169903060",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_crFMo57tTJ1ttPkPCte1.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-_crFMo57tTJ1ttPkPCte1.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/2/example_polaroid_breakout.png",
     "prompt": "Convert the character in the scene into a 3D chibi-style figure, placed inside a Polaroid photo. The photo paper is being held by a human hand. The character is stepping out of the Polaroid frame, creating a visual effect of breaking through the two-dimensional photo border and entering the real-world 3D space.",
     "note": ""
   },
@@ -1600,7 +1715,7 @@
     "category": "character",
     "sourceLink": "https://x.com/balconychy/status/1909417750587486469",
     "geminiImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry--2q-4vkvHtiJCtvj9cQGr.png?v=1",
-    "gpt4oImage": "https://bibigpt-apps.chatvid.ai/chatimg/gemini-retry--2q-4vkvHtiJCtvj9cQGr.png?v=1",
+    "gpt4oImage": "https://cdn.jsdelivr.net/gh/jamez-bondos/awesome-gpt4o-images/cases/1/example_proposal_scene_q_realistic.png",
     "prompt": "Transform the two people in the photo into chibi-style 3D cartoon characters. Change the scene to a proposal setting, with a soft pastel-colored floral arch in the background. Use romantic tones for the overall background. Rose petals are scattered on the ground. While the characters are rendered in cute chibi 3D style, the environment—including the arch, lighting, and textures—should be realistic and photorealistic.",
     "note": ""
   }
@@ -1634,6 +1749,39 @@
             }, 1000);
         }
 
+        // 圖片模態框功能
+        function openImageModal(imageSrc, title, author) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalInfo = document.getElementById('modalInfo');
+            
+            modalImage.src = imageSrc;
+            modalImage.alt = title;
+            modalInfo.innerHTML = `<strong>${title}</strong><br>by ${author}`;
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // 防止背景滾動
+        }
+
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            
+            // 只有點擊模態框背景或關閉按鈕時才關閉
+            if (event && event.target !== modal && event.target.classList.contains('modal-close') === false) {
+                return;
+            }
+            
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // 恢復背景滾動
+        }
+
+        // ESC 鍵關閉模態框
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         // 初始化頁面
         function initializePage() {
             renderCases(casesData);
@@ -1665,7 +1813,7 @@
                         <div class="images-comparison">
                             <div class="image-container">
                                 <h4>🍌 Gemini</h4>
-                                <img src="${caseData.geminiImage}" alt="Gemini Example ${caseData.id}" class="case-image" loading="lazy" onerror="handleImageError(this);">
+                                <img src="${caseData.geminiImage}" alt="Gemini Example ${caseData.id}" class="case-image" loading="lazy" onerror="handleImageError(this);" onclick="openImageModal('${caseData.geminiImage}', 'Case ${caseData.id}: ${caseData.title} - Gemini', '${caseData.author}')">
                                 <div class="image-error" style="display: none;">
                                     <div>🖼️ 圖片載入失敗</div>
                                     <small>${caseData.geminiImage}</small>
@@ -1673,7 +1821,7 @@
                             </div>
                             <div class="image-container">
                                 <h4>🎨 GPT-4o</h4>
-                                <img src="${caseData.gpt4oImage}" alt="GPT-4o Example ${caseData.id}" class="case-image" loading="lazy" onerror="handleImageError(this);">
+                                <img src="${caseData.gpt4oImage}" alt="GPT-4o Example ${caseData.id}" class="case-image" loading="lazy" onerror="handleImageError(this);" onclick="openImageModal('${caseData.gpt4oImage}', 'Case ${caseData.id}: ${caseData.title} - GPT-4o', '${caseData.author}')">
                                 <div class="image-error" style="display: none;">
                                     <div>🖼️ 圖片載入失敗</div>
                                     <small>${caseData.gpt4oImage}</small>
